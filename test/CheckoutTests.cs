@@ -111,5 +111,28 @@ namespace checkout_tests
                 new ChargeAdjustment(fiftty_percent_of_second("B", 30))
             }));
         }
+
+        [Fact]
+        public void Should_be_agnostic_to_order()
+        {
+            _kart.Scan("B");
+            _kart.Scan("A");
+            _kart.Scan("B");
+            Assert.Equal(95, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fixed_disscount_on_third_item("A", 20)),
+                new ChargeAdjustment(fiftty_percent_of_second("B", 30))
+            }));
+
+            //reset
+            _kart = new ShoppingKart();
+
+            _kart.Scan("A");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            Assert.Equal(95, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fixed_disscount_on_third_item("A", 20)),
+                new ChargeAdjustment(fiftty_percent_of_second("B", 30))
+            }));
+        }
     }
 }
