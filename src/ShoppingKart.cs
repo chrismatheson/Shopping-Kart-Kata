@@ -3,7 +3,7 @@
 namespace shopping_kart
 {
 
-    interface ICheckout
+    public interface ICheckout
     {
         void Scan(string item);
         Decimal TotalPrice();
