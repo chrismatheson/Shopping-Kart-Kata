@@ -95,5 +95,21 @@ namespace checkout_tests
                 new ChargeAdjustment(fixed_disscount_on_third_item("A", 20))
             }));
         }
+
+        [Fact]
+        public void Should_calculate_complex_basket_correctly()
+        {
+            new List<string> {
+                "A", "A", "A", //130
+                "B", "B", "B", //75
+                "C", "C", "C", //60
+                "D", "D", "D"  //45
+            }.ForEach(_kart.Scan);
+
+            Assert.Equal(310, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fixed_disscount_on_third_item("A", 20)),
+                new ChargeAdjustment(fiftty_percent_of_second("B", 30))
+            }));
+        }
     }
 }
