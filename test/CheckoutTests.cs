@@ -71,5 +71,18 @@ namespace checkout_tests
                 new SpecialOffer(fiftty_percent_of_second("B", 30))
             }));
         }
+
+        [Fact]
+        public void Should_apply_disscount_on_B_only_twice()
+        {
+            _kart.Scan("B");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            Assert.Equal(120, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
+                new SpecialOffer(fiftty_percent_of_second("B", 30))
+            }));
+        }
     }
 }
