@@ -18,7 +18,7 @@ namespace checkout_tests
             {"D", 15}
         };
 
-        private List<Func<List<string>, Decimal>> _offers = new List<Func<List<string>, Decimal>>();
+        private List<SpecialOffer> _offers = new List<SpecialOffer>();
 
         public CheckoutTests() {
             _kart = new ShoppingKart();
@@ -67,8 +67,8 @@ namespace checkout_tests
         {
             _kart.Scan("B");
             _kart.Scan("B");
-            Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<Func<List<string>, Decimal>> {
-                fiftty_percent_of_second("B", 30)
+            Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
+                new SpecialOffer(fiftty_percent_of_second("B", 30))
             }));
         }
     }

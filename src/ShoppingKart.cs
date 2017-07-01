@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace shopping_kart
 {
-    using SpecialOffer = Func<List<string>, Decimal>;
+    public delegate Decimal SpecialOffer(List<string> basket);
 
     public interface ICheckout
     {
