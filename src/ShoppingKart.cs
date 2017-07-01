@@ -9,7 +9,7 @@ namespace shopping_kart
     public interface ICheckout
     {
         void Scan(string item);
-        Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<ChargeAdjustment> offers );
+        Decimal TotalPrice(List<ChargeAdjustment> adjustors);
     }
 
     public class ShoppingKart : ICheckout
@@ -22,11 +22,8 @@ namespace shopping_kart
             _basket.Add(SKU);
         }
 
-        public Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<ChargeAdjustment> offers) {
-            var disscount = offers.Select(offer => offer(_basket)).Sum();
-            var gross = _basket.Select(sku => pricelist[sku]).Sum();
-
-            return gross + disscount;
+        public Decimal TotalPrice(List<ChargeAdjustment> adjustors) {
+            return adjustors.Select(offer => offer(_basket)).Sum();
         }
     }
 }
