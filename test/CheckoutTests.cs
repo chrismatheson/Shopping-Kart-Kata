@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using shopping_kart;
+using static shopping_kart.Disscounts;
 
 namespace checkout_tests
 {
@@ -67,12 +68,8 @@ namespace checkout_tests
             _kart.Scan("B");
             _kart.Scan("B");
             Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<Func<List<string>, Decimal>> {
-                Disscount_on_B
+                fiftty_percent_of_second("B", 30)
             }));
-        }
-
-        private Decimal Disscount_on_B (List<string> basket) {
-            return (-15);
         }
     }
 }
