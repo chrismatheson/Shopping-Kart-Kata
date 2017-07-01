@@ -18,7 +18,7 @@ namespace checkout_tests
             {"D", 15}
         };
 
-        private List<SpecialOffer> _offers = new List<SpecialOffer>();
+        private List<ChargeAdjustment> _offers = new List<ChargeAdjustment>();
 
         public CheckoutTests() {
             _kart = new ShoppingKart();
@@ -67,8 +67,8 @@ namespace checkout_tests
         {
             _kart.Scan("B");
             _kart.Scan("B");
-            Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
-                new SpecialOffer(fiftty_percent_of_second("B", 30))
+            Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fiftty_percent_of_second("B", 30))
             }));
         }
 
@@ -80,8 +80,8 @@ namespace checkout_tests
             _kart.Scan("B");
             _kart.Scan("B");
             _kart.Scan("B");
-            Assert.Equal(120, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
-                new SpecialOffer(fiftty_percent_of_second("B", 30))
+            Assert.Equal(120, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fiftty_percent_of_second("B", 30))
             }));
         }
 
@@ -91,8 +91,8 @@ namespace checkout_tests
             _kart.Scan("A");
             _kart.Scan("A");
             _kart.Scan("A");
-            Assert.Equal(130, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
-                new SpecialOffer(fixed_disscount_on_third_item("A", 20))
+            Assert.Equal(130, _kart.TotalPrice(_pricelist, new List<ChargeAdjustment> {
+                new ChargeAdjustment(fixed_disscount_on_third_item("A", 20))
             }));
         }
     }

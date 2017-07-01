@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace shopping_kart
 {
-    public delegate Decimal SpecialOffer(List<string> basket);
+    public delegate Decimal ChargeAdjustment(List<string> basket);
 
     public interface ICheckout
     {
         void Scan(string item);
-        Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<SpecialOffer> offers );
+        Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<ChargeAdjustment> offers );
     }
 
     public class ShoppingKart : ICheckout
     {
-        private List<SpecialOffer> _noOffers = new List<SpecialOffer>();
+        private List<ChargeAdjustment> _noOffers = new List<ChargeAdjustment>();
 
         private List<string> _basket = new List<string>();
 
@@ -22,7 +22,7 @@ namespace shopping_kart
             _basket.Add(SKU);
         }
 
-        public Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<SpecialOffer> offers) {
+        public Decimal TotalPrice(Dictionary<string, Decimal> pricelist, List<ChargeAdjustment> offers) {
             var disscount = offers.Select(offer => offer(_basket)).Sum();
             var gross = _basket.Select(sku => pricelist[sku]).Sum();
 

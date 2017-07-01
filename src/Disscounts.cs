@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace shopping_kart {
   public static class Disscounts {
-    public static SpecialOffer fiftty_percent_of_second(string sku, Decimal price) {
+    public static ChargeAdjustment fiftty_percent_of_second(string sku, Decimal price) {
       return list => {
         var countOfMatching = list.Count(i => i.Equals(sku));
         var numberOfDiscounts = Math.Floor((Decimal)(countOfMatching / 2));
@@ -14,7 +14,7 @@ namespace shopping_kart {
       };
     }
 
-    public static SpecialOffer fixed_disscount_on_third_item(string sku, Decimal ammount) {
+    public static ChargeAdjustment fixed_disscount_on_third_item(string sku, Decimal ammount) {
       return list => {
         var countOfMatching = list.Count(i => i.Equals(sku));
         var numberOfDiscounts = Math.Floor((Decimal)(countOfMatching / 3));
