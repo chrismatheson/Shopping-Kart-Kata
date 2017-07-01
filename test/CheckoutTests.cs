@@ -91,7 +91,9 @@ namespace checkout_tests
             _kart.Scan("A");
             _kart.Scan("A");
             _kart.Scan("A");
-            Assert.Equal(130, _kart.TotalPrice(_pricelist, _offers));
+            Assert.Equal(130, _kart.TotalPrice(_pricelist, new List<SpecialOffer> {
+                new SpecialOffer(fixed_disscount_on_third_item("A", 20))
+            }));
         }
     }
 }
