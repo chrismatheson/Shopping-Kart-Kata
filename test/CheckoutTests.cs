@@ -84,5 +84,14 @@ namespace checkout_tests
                 new SpecialOffer(fiftty_percent_of_second("B", 30))
             }));
         }
+
+        [Fact]
+        public void Should_apply_disscount_on_A()
+        {
+            _kart.Scan("A");
+            _kart.Scan("A");
+            _kart.Scan("A");
+            Assert.Equal(130, _kart.TotalPrice(_pricelist, _offers));
+        }
     }
 }
