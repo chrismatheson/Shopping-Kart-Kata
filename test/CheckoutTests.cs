@@ -17,6 +17,8 @@ namespace checkout_tests
             {"D", 15}
         };
 
+        private List<Func<List<string>, Decimal>> _offers = new List<Func<List<string>, Decimal>>();
+
         public CheckoutTests() {
             _kart = new ShoppingKart();
         }
@@ -31,14 +33,14 @@ namespace checkout_tests
         public void Should_calculate_the_price_of_single_A_as_50()
         {
             _kart.Scan("A");
-            Assert.Equal(50, _kart.TotalPrice(_pricelist));
+            Assert.Equal(50, _kart.TotalPrice(_pricelist, _offers));
         }
 
         [Fact]
         public void Should_calculate_the_price_of_single_B_as_30()
         {
             _kart.Scan("B");
-            Assert.Equal(30, _kart.TotalPrice(_pricelist));
+            Assert.Equal(30, _kart.TotalPrice(_pricelist, _offers));
         }
 
         [Fact]
@@ -47,7 +49,7 @@ namespace checkout_tests
             _kart.Scan("B");
             _kart.Scan("B");
             _kart.Scan("B");
-            Assert.Equal(90, _kart.TotalPrice(_pricelist));
+            Assert.Equal(90, _kart.TotalPrice(_pricelist, _offers));
         }
 
         [Fact]
@@ -56,7 +58,7 @@ namespace checkout_tests
             _kart.Scan("B");
             _kart.Scan("A");
             _kart.Scan("D");
-            Assert.Equal(95, _kart.TotalPrice(_pricelist));
+            Assert.Equal(95, _kart.TotalPrice(_pricelist, _offers));
         }
 
         [Fact]
@@ -64,7 +66,13 @@ namespace checkout_tests
         {
             _kart.Scan("B");
             _kart.Scan("B");
-            Assert.Equal(45, _kart.TotalPrice(_pricelist));
+            Assert.Equal(45, _kart.TotalPrice(_pricelist, new List<Func<List<string>, Decimal>> {
+                Disscount_on_B
+            }));
+        }
+
+        private Decimal Disscount_on_B (List<string> basket) {
+            return (-15);
         }
     }
 }
