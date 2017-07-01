@@ -13,6 +13,8 @@ namespace checkout_tests
         private Dictionary<string, Decimal> _pricelist = new Dictionary<string, decimal> {
             {"A", 50},
             {"B", 30},
+            {"C", 20},
+            {"D", 15}
         };
 
         public CheckoutTests() {
@@ -37,6 +39,24 @@ namespace checkout_tests
         {
             _kart.Scan("B");
             Assert.Equal(30, _kart.TotalPrice(_pricelist));
+        }
+
+        [Fact]
+        public void Should_calculate_the_price_of_three_B_as_90()
+        {
+            _kart.Scan("B");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            Assert.Equal(90, _kart.TotalPrice(_pricelist));
+        }
+
+        [Fact]
+        public void Should_calculate_the_price_of_mixed_multiple_items()
+        {
+            _kart.Scan("B");
+            _kart.Scan("A");
+            _kart.Scan("D");
+            Assert.Equal(95, _kart.TotalPrice(_pricelist));
         }
     }
 }
