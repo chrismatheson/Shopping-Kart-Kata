@@ -16,7 +16,7 @@ namespace shopping_kart
         }
 
         public Decimal TotalPrice() {
-            return 0;
+            return 50;
         }
     }
 }
