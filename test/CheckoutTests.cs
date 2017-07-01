@@ -58,5 +58,13 @@ namespace checkout_tests
             _kart.Scan("D");
             Assert.Equal(95, _kart.TotalPrice(_pricelist));
         }
+
+        [Fact]
+        public void Should_apply_disscount_on_B()
+        {
+            _kart.Scan("B");
+            _kart.Scan("B");
+            Assert.Equal(45, _kart.TotalPrice(_pricelist));
+        }
     }
 }
