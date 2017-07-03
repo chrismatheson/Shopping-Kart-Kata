@@ -150,5 +150,20 @@ namespace checkout_tests
                 new ChargeAdjustment(fiftty_percent_of_second("B", 30))
             }));
         }
+
+        [Fact]
+        public void Should_crash_on_negative_total_just_in_case()
+        {
+            _kart.Scan("B");
+            _kart.Scan("B");
+            _kart.Scan("B");
+            Assert.Throws<Exception>(() => {
+                _kart.TotalPrice(new List<ChargeAdjustment> {
+                    new ChargeAdjustment(standard_unit_price(_pricelist)),
+                    new ChargeAdjustment(fixed_disscount_on_third_item("B", 200)),
+                    new ChargeAdjustment(fiftty_percent_of_second("B", 30))
+                });
+            });
+        }
     }
 }
