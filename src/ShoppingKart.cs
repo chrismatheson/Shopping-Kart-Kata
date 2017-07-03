@@ -23,7 +23,13 @@ namespace shopping_kart
         }
 
         public Decimal TotalPrice(List<ChargeAdjustment> adjustors) {
-            return adjustors.Select(offer => offer(_basket)).Sum();
+            var price = adjustors.Select(offer => offer(_basket)).Sum();
+
+            if(price <= 0) {
+                throw new Exception("Probably dot want to be giving away money");
+            }
+
+            return price;
         }
     }
 }
